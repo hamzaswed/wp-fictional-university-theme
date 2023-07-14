@@ -28,7 +28,9 @@
                 Us</a>
             </li>
             <li><a href="#">Programs</a></li>
-            <li><a href="#">Events</a></li>
+            <li class="<?php echo (get_post_type() === 'event') ? 'current-menu-item' : '' ?>">
+              <a href="<?php echo site_url('events') ?>">Events</a>
+            </li>
             <li><a href="#">Campuses</a></li>
             <li class="<?php echo (get_post_type() === 'post') ? 'current-menu-item' : '' ?>">
               <a href="<?php echo site_url('blog') ?>">Blog</a>
