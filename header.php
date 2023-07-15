@@ -29,11 +29,11 @@
             </li>
             <li><a href="#">Programs</a></li>
             <li class="<?php echo (get_post_type() === 'event') ? 'current-menu-item' : '' ?>">
-              <a href="<?php echo site_url('events') ?>">Events</a>
+              <a href="<?php echo get_post_type_archive_link('event') ?>">Events</a>
             </li>
             <li><a href="#">Campuses</a></li>
             <li class="<?php echo (get_post_type() === 'post') ? 'current-menu-item' : '' ?>">
-              <a href="<?php echo site_url('blog') ?>">Blog</a>
+              <a href="<?php echo get_post_type_archive_link('post') ?>">Blog</a>
             </li>
           </ul>
         </nav>

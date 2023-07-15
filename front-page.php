@@ -36,10 +36,14 @@ get_header();
           <div class="event-summary">
             <a class="event-summary__date t-center" href="<?php the_permalink() ?>">
               <span class="event-summary__month">
-                <?php the_time('F') ?>
+                <?php
+                $event_date = new DateTime(get_field('start_date'));
+                ?>
+
+                <?php echo $event_date->format('F'); ?>
               </span>
               <span class="event-summary__day">
-                <?php the_time('j') ?>
+                <?php echo $event_date->format('j'); ?>
               </span>
             </a>
             <div class="event-summary__content">
@@ -47,7 +51,8 @@ get_header();
                   <?php the_title(); ?>
                 </a></h5>
               <p>
-                <?php echo wp_trim_words(get_the_content(), 18) ?> <a href="<?php the_permalink() ?>" class="nu gray">Read
+                <?php echo (has_excerpt()) ? get_the_excerpt() . '…' : wp_trim_words(get_the_content(), 18) ?> <a
+                  href="<?php the_permalink() ?>" class="nu gray">Read
                   more</a>
               </p>
             </div>
@@ -94,7 +99,8 @@ get_header();
                   <?php the_title() ?>
                 </a></h5>
               <p>
-                <?php echo wp_trim_words(get_the_content(), 18) ?> <a href="<?php the_permalink() ?>" class="nu gray">Read
+                <?php echo (has_excerpt()) ? get_the_excerpt() . '…' : wp_trim_words(get_the_content(), 18) ?> <a
+                  href="<?php the_permalink() ?>" class="nu gray">Read
                   more</a>
               </p>
             </div>
