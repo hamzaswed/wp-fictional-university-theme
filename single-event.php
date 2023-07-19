@@ -29,6 +29,30 @@ while (have_posts()) {
       <?php the_content(); ?>
     </div>
 
+    <?php
+    $relatedPrograms = get_field('add_related_programs');
+
+    if (is_array($relatedPrograms)):
+
+      echo '<hr class="section-break">';
+      echo '<h2 class="headline headline--medium">Related Programs</h2>';
+      echo '<ul class="link-list min-list">';
+
+      foreach ($relatedPrograms as $program) {
+        echo '<li>
+
+        <a href="' . get_the_permalink($program) . '">' . get_the_title($program) . '</a>
+      
+      </li>';
+      }
+
+      echo '</ul>';
+
+    endif;
+
+    ?>
+
+
   </div>
 
 

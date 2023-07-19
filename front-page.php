@@ -12,7 +12,7 @@ get_header();
     <h2 class="headline headline--medium">We think you&rsquo;ll like it here.</h2>
     <h3 class="headline headline--small">Why don&rsquo;t you check out the <strong>major</strong> you&rsquo;re
       interested in?</h3>
-    <a href="#" class="btn btn--large btn--blue">Find Your Major</a>
+    <a href="<?php echo get_post_type_archive_link('program'); ?>" class="btn btn--large btn--blue">Find Your Major</a>
   </div>
 </div>
 
@@ -22,15 +22,31 @@ get_header();
       <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
 
       <?php
+      // descending => تنازلي 
+      // ascending => تصاعدي 
+      
+      $today = date('Ymd');
+
       $events = new WP_Query([
         'post_type' => 'event',
-        'posts_per_page' => 2
-      ])
-        ?>
+        'posts_per_page' => 2,
+        'meta_key' => 'start_date',
+        'orderby' => 'meta_value_num',
+        'order' => 'ASC',
+        'meta_query' => [
+          [
+            'key' => 'start_date',
+            'compare' => '>=',
+            'value' => $today,
+            'type' => 'numeric'
+          ]
+        ]
+      ]);
 
-      <?php if ($events->have_posts()): ?>
+      if ($events->have_posts()):
 
-        <?php while ($events->have_posts()):
+        while ($events->have_posts()):
+
           $events->the_post(); ?>
 
           <div class="event-summary">
@@ -38,9 +54,7 @@ get_header();
               <span class="event-summary__month">
                 <?php
                 $event_date = new DateTime(get_field('start_date'));
-                ?>
-
-                <?php echo $event_date->format('F'); ?>
+                echo $event_date->format('F'); ?>
               </span>
               <span class="event-summary__day">
                 <?php echo $event_date->format('j'); ?>
@@ -60,11 +74,12 @@ get_header();
 
         <?php endwhile; ?>
 
-        <?php wp_reset_postdata() ?>
+      <?php wp_reset_postdata() ?>
 
       <?php endif; ?>
 
-      <p class="t-center no-margin"><a href="#" class="btn btn--blue">View All Events</a></p>
+      <p class="t-center no-margin"><a href="<?php echo get_post_type_archive_link('event') ?>"
+          class="btn btn--blue">View All Events</a></p>
     </div>
   </div>
   <div class="full-width-split__two">
